@@ -4,6 +4,7 @@ import Main from './pages/Main';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import TimeSheetPage from './pages/TimeSheetPage';
+import WeekTimesheetDetailsPage from './pages/WeekTimesheetDelailsPage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -26,6 +27,7 @@ function App() {
         <Route
           element={isAuthenticated ? (<Main />) : (<Navigate to="/" />)}>
           <Route path="/timesheet" element={<TimeSheetPage />} />
+          <Route path="/timesheet/:weekId" element={<WeekTimesheetDetailsPage />} />
           {/* add more protected routes here */}
         </Route>
       </Routes>

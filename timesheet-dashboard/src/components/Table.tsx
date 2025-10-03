@@ -26,7 +26,7 @@ function Table({ timesheetData, TimeSheetTableHeader }: { timesheetData: Timeshe
                             <StatusCard title={status}/>
                         </td>
                         <td className="px-4 py-4 text-center">
-                            <a href="#" className="text-[#1C64F2] font-semibold  cursor-pointer">
+                            <a href={"/timesheet/" + week} className="text-[#1C64F2] font-semibold  cursor-pointer">
                                 {action}
                             </a>
                         </td>
