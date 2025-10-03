@@ -55,7 +55,7 @@ const PAGE_SIZE = 5;
 const TOTAL_PAGES = 99;
 
 function TimeSheetPage() {
-    const [currentPage, setCurrentPage] = useState(3);
+    const [currentPage, setCurrentPage] = useState(1);
 
      const paginatedData = timesheetData.slice(
         (currentPage - 1) * PAGE_SIZE,
@@ -73,7 +73,7 @@ function TimeSheetPage() {
     }
 
     return (
-        <div className="bg-[#ffffff] shadow p-4">
+        <div className="bg-[#ffffff] shadow p-4 rounded-lg">
             <h2 className="text-[#111928] text-[24px] font-bold">Your Timesheets</h2>
             <div className="flex gap-4 mt-4">
                 <Dropdown options={DATE_RANGES} onSelect={handleDateRange} label="Date Range" />
@@ -82,7 +82,7 @@ function TimeSheetPage() {
             <div className="mt-6 shadow rounded-lg overflow-hidden">
                 <Table timesheetData={timesheetData} TimeSheetTableHeader={TimeSheetTableHeader} />
             </div>
-            <div>
+            <div className="mt-4">
                 <Pagination currentPage={currentPage} totalPages={TOTAL_PAGES} onPageChange={setCurrentPage} TOTAL_PAGES={TOTAL_PAGES}/>
             </div>
         </div>

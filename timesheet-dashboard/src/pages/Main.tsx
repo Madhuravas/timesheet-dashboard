@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import { Outlet } from "react-router-dom";
+import Footer from "../components/Footer";
 
 function Main() {
     return (
@@ -7,6 +8,10 @@ function Main() {
             <Navbar />
             <div className="bg-[#f0f7fb] px-24 py-10 flex-1">
                 <Outlet />
+                <div className="mt-6">
+                    <Footer />
+                </div>
+
             </div>
 
         </div>
