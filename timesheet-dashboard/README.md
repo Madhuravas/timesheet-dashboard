@@ -54,7 +54,8 @@ API will be available at: http://localhost:5000
 
 ## Run the development server
 npm run dev
-App will be available at: http://localhost:5173
+App will be available at: http://localhost:5173 >>>>> to login ({"email": "test@example.com",
+      "password": "123456"})
 
 ## API Endpoints (via json-server)
 

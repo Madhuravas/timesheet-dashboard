@@ -88,7 +88,7 @@ function WeekTimesheetDetailsPage() {
             {/* Days */}
             {data.days.map((day, dayIndex) => (
                 <div key={day.date} className="mb-6 flex gap-12">
-                    <h3 className="font-semibold text-gray-900 mb-2">{day.date}</h3>
+                    <h3 className="font-semibold text-gray-900 mb-2 w-[100px]">{day.date}</h3>
                     <div className="w-full">
                         {day.tasks.map(task => (
                             <div
