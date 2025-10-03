@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Tooltip from "../utils/Tooltip";
 import Model from "../utils/Model";
 import Dialog from "../components/Dialog";
@@ -21,65 +21,33 @@ type Timesheet = {
     days: Day[];
 };
 
-const initialData: Timesheet = {
-    week: "21 - 26 January, 2024",
-    totalHours: {
-        logged: 20,
-        target: 40,
-    },
-    days: [
-        {
-            date: "Jan 21",
-            tasks: [
-                { id: "t1", title: "Homepage Development", hours: 4, project: "Project Name" },
-                { id: "t2", title: "Homepage Development", hours: 4, project: "Project Name" },
-            ],
-        },
-        {
-            date: "Jan 22",
-            tasks: [
-                { id: "t3", title: "Homepage Development", hours: 4, project: "Project Name" },
-                { id: "t4", title: "Homepage Development", hours: 4, project: "Project Name" },
-                { id: "t5", title: "Homepage Development", hours: 4, project: "Project Name" },
-            ],
-        },
-        {
-            date: "Jan 23",
-            tasks: [
-                { id: "t6", title: "Homepage Development", hours: 4, project: "Project Name" },
-                { id: "t7", title: "Homepage Development", hours: 4, project: "Project Name" },
-                { id: "t8", title: "Homepage Development", hours: 4, project: "Project Name" },
-            ],
-        },
-        {
-            date: "Jan 24",
-            tasks: [
-                { id: "t9", title: "Homepage Development", hours: 4, project: "Project Name" },
-                { id: "t10", title: "Homepage Development", hours: 4, project: "Project Name" },
-                { id: "t11", title: "Homepage Development", hours: 4, project: "Project Name" },
-            ],
-        },
-        {
-            date: "Jan 25",
-            tasks: [],
-        },
-        {
-            date: "Jan 26",
-            tasks: [],
-        },
-    ],
-};
-
 const ModelOptions = ["Edit", "Delete"];
 
 function WeekTimesheetDetailsPage() {
-    const [data, setData] = useState<Timesheet>(initialData);
+    const [data, setData] = useState<Timesheet>({
+        week: "",
+        totalHours: { logged: 0, target: 0 },
+        days: [],
+    });
     const [showModel, setShowModel] = useState<boolean>(false);
     const [selectedModel, setSelectedModel] = useState<string>("");
     const [showDialog, setShowDialog] = useState<boolean>(false);
 
+    useEffect(() => {
+        async function fetchWeekData() {
+            try {
+                const response = await fetch('http://localhost:5000/weeklyTimesheets');
+                const weekData = await response.json();
+                setData(weekData);
+            } catch (error) {
+                console.error("Error fetching week data:", error);
+            }
+        };
+        fetchWeekData();
+    }, [])
+
     const handleShowModel = (id: string) => {
-        if(!id){
+        if (!id) {
             setShowModel(false);
             setSelectedModel('');
             return;
@@ -91,41 +59,7 @@ function WeekTimesheetDetailsPage() {
     const handleAddTask = (dayIndex: any) => {
         console.log("Add task for day index:", dayIndex);
         setShowDialog(prev => !prev);
-        // const newTask: Task = {
-        //     id: Date.now().toString(),
-        //     title: "New Task",
-        //     hours: 1,
-        //     project: "Project Name",
-        // };
-        // const updatedDays = [...data.days];
-        // updatedDays[dayIndex].tasks.push(newTask);
-
-        // setData({
-        //     ...data,
-        //     days: updatedDays,
-        //     totalHours: {
-        //         ...data.totalHours,
-        //         logged: data.totalHours.logged + newTask.hours,
-        //     },
-        // });
     };
-
-    //   const handleDeleteTask = (dayIndex: number, taskId: string) => {
-    //     const updatedDays = [...data.days];
-    //     const taskToDelete = updatedDays[dayIndex].tasks.find((t) => t.id === taskId);
-    //     if (!taskToDelete) return;
-
-    //     updatedDays[dayIndex].tasks = updatedDays[dayIndex].tasks.filter((t) => t.id !== taskId);
-
-    //     setData({
-    //       ...data,
-    //       days: updatedDays,
-    //       totalHours: {
-    //         ...data.totalHours,
-    //         logged: data.totalHours.logged - taskToDelete.hours,
-    //       },
-    //     });
-    //   };
 
     return (
         <div className=" mx-auto bg-white p-6 rounded-lg shadow">
@@ -173,7 +107,7 @@ function WeekTimesheetDetailsPage() {
                                             <div className="h-[5px] w-[5px] rounded-full bg-[#6B7280]"></div>
                                             <div className="h-[5px] w-[5px] rounded-full bg-[#6B7280]"></div>
                                         </button>
-                                        {showModel && selectedModel === task.id && <Model options={ModelOptions} onClose={() => handleShowModel("")}/>}
+                                        {showModel && selectedModel === task.id && <Model options={ModelOptions} onClose={() => handleShowModel("")} />}
                                     </div>
                                 </div>
                             </div>

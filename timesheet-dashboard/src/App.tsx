@@ -7,7 +7,10 @@ import TimeSheetPage from './pages/TimeSheetPage';
 import WeekTimesheetDetailsPage from './pages/WeekTimesheetDelailsPage';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+   const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    // Interpret stored value as boolean; default is false
+    return sessionStorage.getItem("isAuthenticated") === "true";
+  });
 
   return (
     <BrowserRouter basename='/'>

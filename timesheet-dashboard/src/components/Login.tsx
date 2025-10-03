@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useUser } from "../context/UserContext";
 
 function Login({ onLogin }: { onLogin: () => void }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+    const [apiError, setApiError] = useState<string | null>(null);
+    const { setUser } = useUser();
 
     const validate = () => {
         const newErrors: { email?: string; password?: string } = {};
@@ -19,11 +22,23 @@ function Login({ onLogin }: { onLogin: () => void }) {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setApiError(null);
         if (validate()) {
-            // Proceed with login logic
-            onLogin();
+            try {
+                const response = await fetch(`http://localhost:5000/users?email=${email}&password=${password}`);
+                const users = await response.json();
+                if (users.length === 0) {
+                    throw new Error("Invalid credentials");
+                }
+                setUser(users[0]);
+                sessionStorage.setItem("isAuthenticated", "true"); // <-- set true in sessionStorage
+                sessionStorage.setItem("id", users[0].id);
+                onLogin();
+            } catch (error: any) {
+                setApiError(error.message || "Something went wrong");
+            }
         }
     };
 
@@ -59,6 +74,7 @@ function Login({ onLogin }: { onLogin: () => void }) {
                 <input type="checkbox" id="remember" />
                 <label htmlFor="remember">Remember me</label>
             </div>
+            {apiError && <span className="text-red-500 text-sm">{apiError}</span>}
             <button type="submit" className="bg-[#1A56DB] h-[41px] text-[#ffffff] rounded-lg cursor-pointer">Sign in</button>
         </form>
     );

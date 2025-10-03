@@ -1,7 +1,14 @@
 import Dropdown from "../utils/Dropdown";
 import Table from "../components/Table";
 import Pagination from "../components/Pagination";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+type timesheetDataType = {
+    week: number;
+    dateRange: string;
+    status: string;
+    action: string;
+}[];
 
 const DATE_RANGES = [
     { "id": 0, "label": "Today", "value": "today" },
@@ -18,46 +25,28 @@ const STATUS_OPTIONS = [
 
 const TimeSheetTableHeader = ["WEEK #", "DATE", "STATUS", "ACTIONS"];
 
-const timesheetData = [
-    {
-        week: 1,
-        dateRange: "1 - 5 January, 2024",
-        status: "COMPLETED",
-        action: "View",
-    },
-    {
-        week: 2,
-        dateRange: "8 - 12 January, 2024",
-        status: "COMPLETED",
-        action: "View",
-    },
-    {
-        week: 3,
-        dateRange: "15 - 19 January, 2024",
-        status: "INCOMPLETE",
-        action: "Update",
-    },
-    {
-        week: 4,
-        dateRange: "22 - 26 January, 2024",
-        status: "COMPLETED",
-        action: "View",
-    },
-    {
-        week: 5,
-        dateRange: "28 January - 1 February, 2024",
-        status: "MISSING",
-        action: "Create",
-    },
-];
-
 const PAGE_SIZE = 5;
 const TOTAL_PAGES = 99;
 
 function TimeSheetPage() {
     const [currentPage, setCurrentPage] = useState(1);
+    const [timesheetData, setTimesheetData] = useState<timesheetDataType>([]);
 
-     const paginatedData = timesheetData.slice(
+    useEffect(() => {
+        // Simulate fetching data from an API
+        async function fetchData() {
+            try {
+                const response = await fetch('http://localhost:5000/timesheetEntries');
+                const data = await response.json();
+                setTimesheetData(data);
+            } catch (error) {
+                console.error("Error fetching timesheet data:", error);
+            }
+        }
+        fetchData();
+    }, []);
+
+    const paginatedData = timesheetData.slice(
         (currentPage - 1) * PAGE_SIZE,
         currentPage * PAGE_SIZE
     );
@@ -80,10 +69,10 @@ function TimeSheetPage() {
                 <Dropdown options={STATUS_OPTIONS} onSelect={handleStatus} label="Status" />
             </div>
             <div className="mt-6 shadow rounded-lg overflow-hidden">
-                <Table timesheetData={timesheetData} TimeSheetTableHeader={TimeSheetTableHeader} />
+                <Table timesheetData={paginatedData} TimeSheetTableHeader={TimeSheetTableHeader} />
             </div>
             <div className="mt-4">
-                <Pagination currentPage={currentPage} totalPages={TOTAL_PAGES} onPageChange={setCurrentPage} TOTAL_PAGES={TOTAL_PAGES}/>
+                <Pagination currentPage={currentPage} totalPages={TOTAL_PAGES} onPageChange={setCurrentPage} TOTAL_PAGES={TOTAL_PAGES} />
             </div>
         </div>
     )
