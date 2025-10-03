@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Tooltip from "../utils/Tooltip";
 import Model from "../utils/Model";
+import Dialog from "../components/Dialog";
 
 type Task = {
     id: string;
@@ -75,6 +76,7 @@ function WeekTimesheetDetailsPage() {
     const [data, setData] = useState<Timesheet>(initialData);
     const [showModel, setShowModel] = useState<boolean>(false);
     const [selectedModel, setSelectedModel] = useState<string>("");
+    const [showDialog, setShowDialog] = useState<boolean>(false);
 
     const handleShowModel = (id: string) => {
         if(!id){
@@ -86,24 +88,26 @@ function WeekTimesheetDetailsPage() {
         setShowModel(prev => !prev);
     };
 
-    const handleAddTask = (dayIndex: number) => {
-        const newTask: Task = {
-            id: Date.now().toString(),
-            title: "New Task",
-            hours: 1,
-            project: "Project Name",
-        };
-        const updatedDays = [...data.days];
-        updatedDays[dayIndex].tasks.push(newTask);
+    const handleAddTask = (dayIndex: any) => {
+        console.log("Add task for day index:", dayIndex);
+        setShowDialog(prev => !prev);
+        // const newTask: Task = {
+        //     id: Date.now().toString(),
+        //     title: "New Task",
+        //     hours: 1,
+        //     project: "Project Name",
+        // };
+        // const updatedDays = [...data.days];
+        // updatedDays[dayIndex].tasks.push(newTask);
 
-        setData({
-            ...data,
-            days: updatedDays,
-            totalHours: {
-                ...data.totalHours,
-                logged: data.totalHours.logged + newTask.hours,
-            },
-        });
+        // setData({
+        //     ...data,
+        //     days: updatedDays,
+        //     totalHours: {
+        //         ...data.totalHours,
+        //         logged: data.totalHours.logged + newTask.hours,
+        //     },
+        // });
     };
 
     //   const handleDeleteTask = (dayIndex: number, taskId: string) => {
@@ -184,6 +188,7 @@ function WeekTimesheetDetailsPage() {
                     </div>
                 </div>
             ))}
+            {showDialog && <Dialog onClose={() => handleAddTask("")} />}
         </div>
     );
 };

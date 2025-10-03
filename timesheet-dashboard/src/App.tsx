@@ -27,7 +27,7 @@ function App() {
         <Route
           element={isAuthenticated ? (<Main />) : (<Navigate to="/" />)}>
           <Route path="/timesheet" element={<TimeSheetPage />} />
-          <Route path="/timesheet/:weekId" element={<WeekTimesheetDetailsPage />} />
+          <Route path="/timesheetDetails/:weekId" element={<WeekTimesheetDetailsPage />} />
           {/* add more protected routes here */}
         </Route>
       </Routes>
