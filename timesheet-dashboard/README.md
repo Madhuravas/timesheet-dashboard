@@ -1,73 +1,63 @@
-# React + TypeScript + Vite
+# Timesheet Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web-based timesheet management dashboard built with **React, TypeScript, and Vite**.  
+It allows users to log in, manage weekly timesheets, and view detailed reports with a clean UI.  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- User authentication (login page with context-based session handling)  
+- Timesheet tracking (weekly and daily breakdowns)  
+- Dashboard with pagination and table views  
+- Mock API integration using `json-server` (`db.json`)  
+- Modern UI with reusable components (Navbar, Footer, Dialog, etc.)  
+- Fast development environment powered by **Vite**  
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Project Structure
 
-## Expanding the ESLint configuration
+timesheet-dashboard/
+├── db/ # Mock API data (db.json)
+├── public/ # Static assets
+├── src/
+│ ├── components/ # Reusable UI components
+│ ├── context/ # React Context for global state
+│ ├── pages/ # Page-level components (Login, Timesheet, etc.)
+│ ├── App.tsx # Main app entry
+│ └── main.tsx # React DOM render entry
+├── index.html # HTML entry point
+├── package.json # Project dependencies
+├── vite.config.ts # Vite configuration
+└── tsconfig.json # TypeScript configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
+- **Frontend:** React, TypeScript, Vite  
+- **State Management:** React Context API  
+- **Styling:** CSS (customized with modular styles)  
+- **API (Mock):** json-server with `db.json`  
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Installation & Setup
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. **Clone the repository**
+   ```sh
+   git clone https://github.com/your-username/timesheet-dashboard.git
+   cd timesheet-dashboard
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Install dependencies
+npm install
+json-server --watch db/db.json --port 5000
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+API will be available at: http://localhost:5000
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Run the development server
+npm run dev
+App will be available at: http://localhost:5173
+
+## API Endpoints (via json-server)
+
+GET /users → Fetch user list (for login validation)
+GET /timesheets → Fetch timesheet data
+GET /timesheets/:id → Fetch single timesheet details
