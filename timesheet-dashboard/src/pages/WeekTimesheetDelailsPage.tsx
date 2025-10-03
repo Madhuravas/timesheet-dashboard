@@ -107,7 +107,7 @@ function WeekTimesheetDetailsPage() {
                                             <div className="h-[5px] w-[5px] rounded-full bg-[#6B7280]"></div>
                                             <div className="h-[5px] w-[5px] rounded-full bg-[#6B7280]"></div>
                                         </button>
-                                        {showModel && selectedModel === task.id && <Model options={ModelOptions} onClose={() => handleShowModel("")} />}
+                                        {showModel && selectedModel === task.id && <Model options={ModelOptions} onClose={() => handleShowModel("")} selectedItem={() =>{}}/>}
                                     </div>
                                 </div>
                             </div>

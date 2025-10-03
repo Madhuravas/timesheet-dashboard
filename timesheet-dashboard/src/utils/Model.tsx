@@ -1,6 +1,6 @@
 import { useRef, useEffect} from "react";
 
-function Model({options, onClose}: {options: string[]; onClose: () => void}) {
+function Model({options, onClose, selectedItem}: {options: string[]; onClose: () => void; selectedItem: () => void}) {
     const modelRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -15,9 +15,10 @@ function Model({options, onClose}: {options: string[]; onClose: () => void}) {
     }, [onClose]);
 
     return (
-        <div ref={modelRef} className="absolute bg-white border border-gray-300 rounded shadow-lg w-20 z-20 mt-2 -ml-6">
+        <div ref={modelRef} className="absolute bg-white border border-gray-300 rounded shadow-lg z-20 mt-2 -ml-20">
             {options.map((option, index) => (
                 <div
+                    onClick={selectedItem}
                     key={index}
                     className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${option === "Delete" ? "text-red-500" : "text-gray-700"}`}
                 >

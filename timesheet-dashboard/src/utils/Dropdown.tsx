@@ -51,7 +51,7 @@ function Dropdown({ options, onSelect, label }: { options: Option[]; onSelect: (
 
             {isOpen && (
                 <div
-                    className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+                    className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                 >
                     <div className="py-1">
                         {options.map((option) => (
