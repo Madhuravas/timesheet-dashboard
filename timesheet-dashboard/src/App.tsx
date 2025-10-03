@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import TimeSheetPage from './pages/TimeSheetPage';
 import WeekTimesheetDetailsPage from './pages/WeekTimesheetDelailsPage';
+import Error from './components/Error';
 
 function App() {
    const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -33,11 +34,9 @@ function App() {
           <Route path="/timesheetDetails/:weekId" element={<WeekTimesheetDetailsPage />} />
           {/* add more protected routes here */}
         </Route>
+        <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
-    // <>
-    //  <Main />
-    // </>
   )
 }
 
