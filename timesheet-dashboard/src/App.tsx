@@ -31,7 +31,7 @@ function App() {
         <Route
           element={isAuthenticated ? (<Main />) : (<Navigate to="/" />)}>
           <Route path="/timesheet" element={<TimeSheetPage />} />
-          <Route path="/timesheetDetails/:weekId" element={<WeekTimesheetDetailsPage />} />
+          <Route path="/timesheetDetails" element={<WeekTimesheetDetailsPage />} />
           {/* add more protected routes here */}
         </Route>
         <Route path="*" element={<Error />} />
