@@ -3,7 +3,7 @@ import './App.css';
 import Main from './pages/Main';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
-import TimeSheetPage from './pages/TimeSheetPage';
+import TimeSheetPage from './pages/TimesheetPage'
 import WeekTimesheetDetailsPage from './pages/WeekTimesheetDelailsPage';
 import Error from './components/Error';
 
