@@ -1,4 +1,5 @@
 import StatusCard from "../utils/StatusCard";
+import { useNavigate } from "react-router-dom";
 
 type TimesheetEntry = {
     week: number;
@@ -8,6 +9,7 @@ type TimesheetEntry = {
 };
 
 function Table({ timesheetData, TimeSheetTableHeader }: { timesheetData: TimesheetEntry[]; TimeSheetTableHeader: string[] }) {
+    const navigate = useNavigate();
     return (
         <table className="w-[100%] border-collapse">
             <thead className="bg-[#F9FAFB]">
@@ -26,9 +28,9 @@ function Table({ timesheetData, TimeSheetTableHeader }: { timesheetData: Timeshe
                             <StatusCard title={status}/>
                         </td>
                         <td className="px-4 py-4 text-center">
-                            <a href="/timesheetDetails" className="text-[#1C64F2] font-semibold  cursor-pointer">
+                            <button onClick={() => navigate("/timesheetDetails")} className="text-[#1C64F2] font-semibold  cursor-pointer">
                                 {action}
-                            </a>
+                            </button>
                         </td>
                     </tr>
                 ))}
