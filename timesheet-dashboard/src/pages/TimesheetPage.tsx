@@ -72,7 +72,7 @@ function TimeSheetPage() {
                 <Table timesheetData={paginatedData} TimeSheetTableHeader={TimeSheetTableHeader} />
             </div>
             <div className="mt-4">
-                <Pagination currentPage={currentPage} totalPages={TOTAL_PAGES} onPageChange={setCurrentPage} TOTAL_PAGES={TOTAL_PAGES} />
+                <Pagination currentPage={currentPage} onPageChange={setCurrentPage} TOTAL_PAGES={TOTAL_PAGES} />
             </div>
         </div>
     )

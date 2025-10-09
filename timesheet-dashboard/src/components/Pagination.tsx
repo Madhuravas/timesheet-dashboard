@@ -1,4 +1,4 @@
-function Pagination({ currentPage, totalPages, onPageChange, TOTAL_PAGES }: { currentPage: number, totalPages: number, onPageChange: (page: number) => void; TOTAL_PAGES: number }) {
+function Pagination({ currentPage, onPageChange, TOTAL_PAGES }: { currentPage: number, onPageChange: (page: number) => void; TOTAL_PAGES: number }) {
 
     // Ensure data is sliced correctly per page
 
