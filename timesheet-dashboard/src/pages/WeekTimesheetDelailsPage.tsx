@@ -21,6 +21,110 @@ type Timesheet = {
     days: Day[];
 };
 
+ const weeklyTimesheets = {
+    "week": "21 - 26 January, 2024",
+    "totalHours": {
+      "logged": 20,
+      "target": 40
+    },
+    "days": [
+      {
+        "date": "Jan 21",
+        "tasks": [
+          {
+            "id": "t1",
+            "title": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          },
+          {
+            "id": "t2",
+            "title": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "Jan 22",
+        "tasks": [
+          {
+            "id": "t3",
+            "title": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          },
+          {
+            "id": "t4",
+            "title": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          },
+          {
+            "id": "t5",
+            "title": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "Jan 23",
+        "tasks": [
+          {
+            "id": "t6",
+            "title": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          },
+          {
+            "id": "t7",
+            "title": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          },
+          {
+            "id": "t8",
+            "title": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "Jan 24",
+        "tasks": [
+          {
+            "id": "t9",
+            "title": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          },
+          {
+            "id": "t10",
+            "title": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          },
+          {
+            "id": "t11",
+            "title": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "Jan 25",
+        "tasks": []
+      },
+      {
+        "date": "Jan 26",
+        "tasks": []
+      }
+    ]
+}
+
 const ModelOptions = ["Edit", "Delete"];
 
 function WeekTimesheetDetailsPage() {
@@ -40,6 +144,7 @@ function WeekTimesheetDetailsPage() {
                 const weekData = await response.json();
                 setData(weekData);
             } catch (error) {
+                setData(weeklyTimesheets);
                 console.error("Error fetching week data:", error);
             }
         };

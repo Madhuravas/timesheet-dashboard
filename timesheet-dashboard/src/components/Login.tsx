@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { useUser } from "../context/UserContext";
 
+const DUMMY_USER_DATA = {
+    id: "1",
+    email: "test@example.com",
+    name: "John Doe",
+    password : "123456"
+}
+
 function Login({ onLogin }: { onLogin: () => void }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -29,9 +36,7 @@ function Login({ onLogin }: { onLogin: () => void }) {
             try {
                 const response = await fetch(`http://localhost:5000/users?email=${email}&password=${password}`);
                 const users = await response.json();
-                // if (users.length === 0) {
-                //     throw new Error("Invalid credentials");
-                // }
+                
                 setUser({
                     "id": "1",
                     "email": "test@example.com",
@@ -41,7 +46,17 @@ function Login({ onLogin }: { onLogin: () => void }) {
                 sessionStorage.setItem("id", users[0].id);
                 onLogin();
             } catch (error: any) {
-                setApiError(error.message || "Something went wrong");
+                if(DUMMY_USER_DATA.email === email && DUMMY_USER_DATA.password === password){
+                    sessionStorage.setItem("isAuthenticated", "true"); // <-- set true in sessionStorage
+                    sessionStorage.setItem("id", "1");
+                    onLogin();
+                    setUser({
+                        "id": "1",
+                        "email": "test@example.com",
+                        "name": "John Doe"
+                    });
+                }
+                // setApiError(error.message || "Something went wrong");
             }
         }
     };

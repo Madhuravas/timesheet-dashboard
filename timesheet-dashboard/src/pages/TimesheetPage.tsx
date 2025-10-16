@@ -10,6 +10,39 @@ type timesheetDataType = {
     action: string;
 }[];
 
+ const timesheetEntries = [
+    {
+      "week": 1,
+      "dateRange": "1 - 5 January, 2024",
+      "status": "COMPLETED",
+      "action": "View"
+    },
+    {
+      "week": 2,
+      "dateRange": "8 - 12 January, 2024",
+      "status": "COMPLETED",
+      "action": "View"
+    },
+    {
+      "week": 3,
+      "dateRange": "15 - 19 January, 2024",
+      "status": "INCOMPLETE",
+      "action": "Update"
+    },
+    {
+      "week": 4,
+      "dateRange": "22 - 26 January, 2024",
+      "status": "COMPLETED",
+      "action": "View"
+    },
+    {
+      "week": 5,
+      "dateRange": "28 January - 1 February, 2024",
+      "status": "MISSING",
+      "action": "Create"
+    }
+  ]
+
 const DATE_RANGES = [
     { "id": 0, "label": "Today", "value": "today" },
     { "id": 1, "label": "This Week", "value": "this_week" },
@@ -40,6 +73,7 @@ function TimeSheetPage() {
                 const data = await response.json();
                 setTimesheetData(data);
             } catch (error) {
+                 setTimesheetData(timesheetEntries);
                 console.error("Error fetching timesheet data:", error);
             }
         }
